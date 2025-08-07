@@ -20,6 +20,7 @@ public class Alumno {
     Timestamp modificado_hora;
 
     public Alumno() {
+        
     }
 
     public Alumno(int id_alumno, String matricula, String nombre, String a_paterno, String a_materno, String email, String password, String qr,  Timestamp creado_hora, Timestamp modificado_hora) {
