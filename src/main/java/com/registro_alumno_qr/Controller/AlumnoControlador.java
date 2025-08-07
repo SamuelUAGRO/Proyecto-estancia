@@ -5,6 +5,7 @@ import com.registro_alumno_qr.Model.Alumno;
 import com.registro_alumno_qr.Model.Alumno_DAO;
 import com.registro_alumno_qr.View.AgregarAlumno;
 import com.google.zxing.WriterException;
+import com.registro_alumno_qr.Utils.HashGenerator;
 import com.registro_alumno_qr.Utils.QrGenerator;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -49,16 +50,24 @@ private void registrarAlumno() {
     alumno.setA_materno(aMaterno);
     alumno.setEmail(email);
     alumno.setPassword(password);
+    
+    if (alumnoDAO.existeMatricula(matricula)) {
+    mostrarMensaje("Ya existe un alumno con esa matrícula");
+    limpiarCampos();
+    return;
+}
+    
+    String hashQR = HashGenerator.generarSHA256(matricula);
+    alumno.setQr(hashQR);
 
     // Generar ruta del QR (asegúrate de que la carpeta "qrs" exista)
     String rutaQR = "qrs/" + matricula + ".png";
 
     try {
         // Generar código QR y guardarlo en disco
-        QrGenerator.generarQRCode(matricula, rutaQR, 200, 200);
+        QrGenerator.generarQRCode(hashQR, rutaQR, 200, 200);
 
-        // Guardar la ruta del QR en el objeto Alumno para guardarla en BD
-        alumno.setQr(rutaQR);
+        alumno.setQr(hashQR);
 
     } catch (WriterException | IOException e) {
         e.printStackTrace();

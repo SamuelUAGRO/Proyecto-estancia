@@ -23,11 +23,16 @@ public class Alumno_DAO {
 
             stmt.executeUpdate();
             return true;
+            
+            } catch (SQLIntegrityConstraintViolationException e) {
+        System.out.println("Error: Matrícula duplicada");
+        return false;
 
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
         }
+      
     }
 
     public Alumno obtenerAlumnoPorID(int idAlumno) {
@@ -99,5 +104,18 @@ public class Alumno_DAO {
             return false;
         }
     }
+    
+    public boolean existeMatricula(String matricula) {
+    String sql = "SELECT 1 FROM alumnos WHERE matricula = ?";
+    try (Connection conn = ConexionDB.getConexion();
+         PreparedStatement stmt = conn.prepareStatement(sql)) {
+        stmt.setString(1, matricula);
+        ResultSet rs = stmt.executeQuery();
+        return rs.next(); // true si ya existe
+    } catch (SQLException e) {
+        e.printStackTrace();
+        return false;
+    }
+}
 
 }

@@ -1,8 +1,8 @@
 -- MySQL dump 10.13  Distrib 8.0.33, for Win64 (x86_64)
 --
--- Host: localhost    Database: registro_alumno_qr
+-- Host: localhost    Database: registrar_alumno_qr
 -- ------------------------------------------------------
--- Server version	9.1.0
+-- Server version	8.0.33
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -30,13 +30,12 @@ CREATE TABLE `alumnos` (
   `a_materno` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `QR` varchar(255) NOT NULL,
-  `email_verficado_hora` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `QR` varchar(255) DEFAULT NULL,
   `creado_hora` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `modificado_hora` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `modificado_hora` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_alumno`),
   UNIQUE KEY `id_alumno_UNIQUE` (`id_alumno`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -45,6 +44,7 @@ CREATE TABLE `alumnos` (
 
 LOCK TABLES `alumnos` WRITE;
 /*!40000 ALTER TABLE `alumnos` DISABLE KEYS */;
+INSERT INTO `alumnos` VALUES (1,'23002249','Samuel Antonio','Ramos','Alonso','23002249@uagor.mx','12345678',NULL,NULL,NULL),(2,'2300234324','Micaelo','Ranfla','Tulum','1231312@uagro.mx','pipidsafaf',NULL,'2025-08-05 14:49:15','2025-08-05 14:49:15'),(3,'123414','turus','goala','miko','23424@uagro.mx','2342gadfa','qrs/123414.png','2025-08-05 15:20:17','2025-08-05 15:20:17');
 /*!40000 ALTER TABLE `alumnos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -86,4 +86,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-08-04 20:15:07
+-- Dump completed on 2025-08-05  9:38:05
