@@ -15,6 +15,3 @@ Thumbs.db
 *.swp
 /target/
 
-# Ignorar archivo de configuración local con credenciales
-src/main/java/com/registro_alumno_qr/Config/ConexionDB.java
-
