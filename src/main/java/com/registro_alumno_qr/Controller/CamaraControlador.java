@@ -5,25 +5,29 @@ import com.github.sarxos.webcam.Webcam;
 import com.google.zxing.*;
 import com.google.zxing.common.HybridBinarizer;
 import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
+import com.registro_alumno_qr.Model.Alumno_DAO;
+import com.registro_alumno_qr.View.AgregarAlumno;
 import com.registro_alumno_qr.View.VistaCamara;
 import java.awt.image.BufferedImage;
 import java.awt.Dimension;
 
 
 public class CamaraControlador {
-    
-      private VistaCamara vista;
+
+    private VistaCamara vista;
     private Webcam webcam;
     private volatile boolean running = false;
 
     public CamaraControlador(VistaCamara vista) {
         this.vista = vista;
+
         iniciarCamara();
+        initEventos();
     }
 
     private void iniciarCamara() {
         webcam = Webcam.getDefault();
-    webcam.setViewSize(new Dimension(640, 480));
+        webcam.setViewSize(new Dimension(640, 480));
         webcam.open();
 
         running = true;
@@ -51,11 +55,26 @@ public class CamaraControlador {
         }).start();
     }
 
+    private void initEventos() {
+        vista.getBtnRegistrarAlumno().addActionListener(e -> abrirRegistroAlumno());
+    }
+
     public void detenerCamara() {
         running = false;
         if (webcam != null && webcam.isOpen()) {
             webcam.close();
         }
     }
-    
+
+    private void abrirRegistroAlumno() {
+        detenerCamara();
+
+        AgregarAlumno vistaRegistro = new AgregarAlumno();
+        Alumno_DAO dao = new Alumno_DAO();
+        AlumnoControlador controladorRegistro = new AlumnoControlador(vistaRegistro, dao);
+
+        vistaRegistro.setVisible(true);
+        vista.dispose();
+    }
 }
+

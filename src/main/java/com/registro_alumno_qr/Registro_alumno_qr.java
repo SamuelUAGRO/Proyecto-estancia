@@ -10,13 +10,8 @@ import com.registro_alumno_qr.View.VistaCamara;
 public class Registro_alumno_qr {
 
     public static void main(String[] args) {
-             VistaCamara vista = new VistaCamara();
-        CamaraControlador controlador = new CamaraControlador(vista);
-        vista.setVisible(true);
-       /* AgregarAlumno vista = new AgregarAlumno();
-        Alumno_DAO dao = new Alumno_DAO();
-        AlumnoControlador controlador = new AlumnoControlador(vista);
-
-        vista.setVisible(true);*/
+                 VistaCamara vistaCamara = new VistaCamara();
+    CamaraControlador controladorCamara = new CamaraControlador(vistaCamara);
+    vistaCamara.setVisible(true);
     }
 }
