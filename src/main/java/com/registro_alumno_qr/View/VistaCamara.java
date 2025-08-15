@@ -35,6 +35,9 @@ public class VistaCamara extends javax.swing.JFrame {
     public JButton getBtnRegistrarAlumno() {
     return btnRegistrarAlumno;
 }
+    public JButton getBtnAsistencias() {
+    return btnAsistencias;
+}
 
 
     @Override
@@ -56,7 +59,7 @@ public class VistaCamara extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
+        btnAsistencias = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -137,20 +140,20 @@ public class VistaCamara extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(255, 102, 0));
 
-        jButton2.setBackground(new java.awt.Color(255, 51, 0));
-        jButton2.setFont(new java.awt.Font("Trebuchet MS", 1, 20)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("Asistencias\n");
+        btnAsistencias.setBackground(new java.awt.Color(255, 51, 0));
+        btnAsistencias.setFont(new java.awt.Font("Trebuchet MS", 1, 20)); // NOI18N
+        btnAsistencias.setForeground(new java.awt.Color(255, 255, 255));
+        btnAsistencias.setText("Asistencias\n");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 410, Short.MAX_VALUE)
+            .addComponent(btnAsistencias, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 410, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+            .addComponent(btnAsistencias, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
         );
 
         background.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 0, 410, -1));
@@ -206,8 +209,8 @@ public class VistaCamara extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel background;
+    private javax.swing.JButton btnAsistencias;
     private javax.swing.JButton btnRegistrarAlumno;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

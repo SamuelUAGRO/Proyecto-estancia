@@ -4,14 +4,28 @@
  */
 package com.registro_alumno_qr.View;
 
+import javax.swing.JButton;
+import javax.swing.table.DefaultTableModel;
 
-public class VistaAsistencia extends javax.swing.JFrame {   
+
+public class VistaAsistencia extends javax.swing.JFrame {
+    
+    
 
     public VistaAsistencia() {
         initComponents();   
+           setLocationRelativeTo(null); 
        
     }
-    
+    public void setModeloTabla(DefaultTableModel modelo) {
+    tablaAsistencias.setModel(modelo);
+}
+        public JButton getBtnRegistrarAlumno() {
+    return btnRegistrarAlumno;
+}
+    public JButton getBtnAsistencias() {
+    return btnCamara;
+}
    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -20,10 +34,12 @@ public class VistaAsistencia extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         btnRegistrarAlumno = new javax.swing.JButton();
         btnCamara = new javax.swing.JButton();
-        tablaAsistencias = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        scroll = new javax.swing.JScrollPane();
+        tablaAsistencias = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(800, 500));
+        setResizable(false);
         setSize(new java.awt.Dimension(800, 500));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -41,20 +57,24 @@ public class VistaAsistencia extends javax.swing.JFrame {
         btnCamara.setText("Camara");
         jPanel1.add(btnCamara, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 0, 400, 60));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        scroll.setBackground(new java.awt.Color(204, 204, 204));
+        scroll.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        tablaAsistencias.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); // NOI18N
+        tablaAsistencias.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Matricula", "Nombre", "Fecha", "Hora_Entrada", "Hora_Salida"
             }
         ));
-        tablaAsistencias.setViewportView(jTable1);
+        scroll.setViewportView(tablaAsistencias);
 
-        jPanel1.add(tablaAsistencias, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 540, 390));
+        jPanel1.add(scroll, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 610, 360));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -106,10 +126,10 @@ public class VistaAsistencia extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCamara;
-    private javax.swing.JButton btnRegistrarAlumno;
+    public javax.swing.JButton btnCamara;
+    public javax.swing.JButton btnRegistrarAlumno;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JScrollPane tablaAsistencias;
+    private javax.swing.JScrollPane scroll;
+    public javax.swing.JTable tablaAsistencias;
     // End of variables declaration//GEN-END:variables
 }

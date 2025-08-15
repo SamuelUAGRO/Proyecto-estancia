@@ -1,4 +1,3 @@
-
 package com.registro_alumno_qr.Controller;
 
 import com.github.sarxos.webcam.Webcam;
@@ -11,26 +10,25 @@ import com.registro_alumno_qr.View.VistaCamara;
 import java.awt.image.BufferedImage;
 import java.awt.Dimension;
 
-
 public class CamaraControlador {
 
     private VistaCamara vista;
     private Webcam webcam;
     private volatile boolean running = false;
     private Alumno_DAO alumnoDAO;
-private Asistencia_DAO asistenciaDAO;
-private VistaAsistencia vistaAsistencia;
-private AsistenciaControlador asistenciaControlador;
+    private Asistencia_DAO asistenciaDAO;
+    private VistaAsistencia vistaAsistencia;
+    private AsistenciaControlador asistenciaControlador;
 
     public CamaraControlador(VistaCamara vista) {
         this.vista = vista;
 
-           // Inicializamos DAOs
-    alumnoDAO = new Alumno_DAO();
-    asistenciaDAO = new Asistencia_DAO();
+        // Inicializamos DAOs
+        alumnoDAO = new Alumno_DAO();
+        asistenciaDAO = new Asistencia_DAO();
 
-    // Creamos controlador de asistencia
-    asistenciaControlador = new AsistenciaControlador(alumnoDAO, asistenciaDAO, vistaAsistencia);
+        // Creamos controlador de asistencia
+        asistenciaControlador = new AsistenciaControlador(alumnoDAO, asistenciaDAO, vistaAsistencia);
 
         iniciarCamara();
         initEventos();
@@ -47,8 +45,8 @@ private AsistenciaControlador asistenciaControlador;
                 BufferedImage image = webcam.getImage();
                 if (image != null) {
                     try {
-                          String mensaje = asistenciaControlador.procesarQR(image);
-                        
+                        String mensaje = asistenciaControlador.procesarQR(image);
+
                         vista.mostrarTextoQR(mensaje);
                     } catch (NotFoundException e) {
                         vista.mostrarTextoQR(""); // No QR encontrado
@@ -66,6 +64,8 @@ private AsistenciaControlador asistenciaControlador;
 
     private void initEventos() {
         vista.getBtnRegistrarAlumno().addActionListener(e -> abrirRegistroAlumno());
+        vista.getBtnAsistencias().addActionListener(e -> abrirVistaAsistencias());
+
     }
 
     public void detenerCamara() {
@@ -85,5 +85,17 @@ private AsistenciaControlador asistenciaControlador;
         vistaRegistro.setVisible(true);
         vista.dispose();
     }
-}
 
+    private void abrirVistaAsistencias() {
+        detenerCamara();
+        VistaAsistencia vistaAsistencia = new VistaAsistencia();
+        Asistencia_DAO asistenciaDAO = new Asistencia_DAO();
+
+        AsistenciaControlador controladorAsistencia = new AsistenciaControlador(vistaAsistencia, asistenciaDAO);
+
+        vistaAsistencia.setVisible(true);
+
+        vista.dispose();
+    }
+
+}
