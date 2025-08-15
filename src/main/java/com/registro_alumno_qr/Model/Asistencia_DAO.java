@@ -5,58 +5,43 @@ import com.registro_alumno_qr.Config.ConexionDB;
 
 public class Asistencia_DAO {
 
-    public boolean insertarAsistencia(Asistencia asistencia) {
-        String sql = "INSERT INTO asistencia (dia_asistencia, hora_entrada, hora_salida, hora_actualizacion) VALUES (?, ?, ?, ?)";
+     public boolean registrarEntrada(int idAlumno) {
+    String sql = "INSERT INTO asistencias (dia_asistencia, hora_entrada, hora_actualizacion, alumno_id) " +
+                 "SELECT ?, ?, ?, ? FROM DUAL " +
+                 "WHERE NOT EXISTS (" +
+                 "  SELECT 1 FROM asistencias WHERE alumno_id = ? AND dia_asistencia = CURRENT_DATE" +
+                 ")";
+    try (Connection conn = ConexionDB.getConexion();
+         PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-        try (Connection conn = ConexionDB.getConexion(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+        Timestamp ahora = new Timestamp(System.currentTimeMillis());
+        stmt.setDate(1, new java.sql.Date(ahora.getTime()));
+        stmt.setTimestamp(2, ahora);
+        stmt.setTimestamp(3, ahora);
+        stmt.setInt(4, idAlumno);
+        stmt.setInt(5, idAlumno);
 
-            stmt.setDate(1, asistencia.getDia_asistencia());
-            stmt.setTimestamp(2, asistencia.getHora_entrada());
-            stmt.setTimestamp(3, asistencia.getHora_salida());
-            stmt.setTimestamp(4, asistencia.getHora_actualizacion());
+        int filas = stmt.executeUpdate();
+        return filas > 0; // true si se creó un registro nuevo
 
-            stmt.executeUpdate();
-            return true;
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+        return false;
     }
+}
 
-    public Asistencia obtenerAsistenciaPorID(int idAsistencia) {
-        String sql = "SELECT * FROM asistencia WHERE id_asistencia = ?";
-        Asistencia asistencia = null;
+    // Registrar hora de salida de un alumno
+    public boolean registrarSalida(int idAlumno) {
+        String sql = "UPDATE asistencias SET hora_salida = ?, hora_actualizacion = ? "
+                   + "WHERE alumno_id = ? AND dia_asistencia = CURRENT_DATE";
+        try (Connection conn = ConexionDB.getConexion();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-        try (Connection conn = ConexionDB.getConexion(); PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(1, idAsistencia);
-            ResultSet rs = stmt.executeQuery();
+            Timestamp ahora = new Timestamp(System.currentTimeMillis());
 
-            if (rs.next()) {
-                asistencia = new Asistencia();
-                asistencia.setId_asistencia(rs.getInt("id_asistencia"));
-                asistencia.setDia_asistencia(rs.getDate("dia_asistencia"));  // 👈 aquí usamos Date
-                asistencia.setHora_entrada(rs.getTimestamp("hora_entrada"));
-                asistencia.setHora_salida(rs.getTimestamp("hora_salida"));
-                asistencia.setHora_actualizacion(rs.getTimestamp("hora_actualizacion"));
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return asistencia;
-    }
-
-    public boolean actualizarAsistencia(Asistencia asistencia) {
-        String sql = "UPDATE asistencia SET dia_asistencia = ?, hora_entrada = ?, hora_salida = ?, hora_actualizacion = ? WHERE id_asistencia = ?";
-
-        try (Connection conn = ConexionDB.getConexion(); PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setDate(1, asistencia.getDia_asistencia());
-            stmt.setTimestamp(2, asistencia.getHora_entrada());
-            stmt.setTimestamp(3, asistencia.getHora_salida());
-            stmt.setTimestamp(4, asistencia.getHora_actualizacion());
-            stmt.setInt(5, asistencia.getId_asistencia());
+            stmt.setTimestamp(1, ahora); // hora_salida
+            stmt.setTimestamp(2, ahora); // hora_actualizacion
+            stmt.setInt(3, idAlumno);
 
             int filas = stmt.executeUpdate();
             return filas > 0;
@@ -66,22 +51,8 @@ public class Asistencia_DAO {
             return false;
         }
     }
-
-    public boolean eliminarAsistencia(int idAsistencia) {
-        String sql = "DELETE FROM asistencia WHERE id_asistencia = ?";
-
-        try (Connection conn = ConexionDB.getConexion(); PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(1, idAsistencia);
-            int filas = stmt.executeUpdate();
-            return filas > 0;
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-        
-        
-    }
+    
+    
   
     
     

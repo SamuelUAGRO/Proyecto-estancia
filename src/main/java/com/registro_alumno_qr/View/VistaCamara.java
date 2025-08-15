@@ -105,7 +105,6 @@ public class VistaCamara extends javax.swing.JFrame {
         jPanel3.setBackground(new java.awt.Color(255, 51, 0));
 
         lblQrtexto.setBackground(new java.awt.Color(255, 102, 0));
-        lblQrtexto.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblQrtexto.setForeground(new java.awt.Color(255, 255, 255));
         lblQrtexto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
@@ -127,7 +126,7 @@ public class VistaCamara extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(166, 67, 28));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Matricula:");
+        jLabel2.setText("Mensaje");
         background.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 210, 220, 30));
 
         jLabel1.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N

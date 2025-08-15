@@ -117,5 +117,35 @@ public class Alumno_DAO {
         return false;
     }
 }
+    
+       public Alumno obtenerAlumnoPorQR(String qrHash) {
+        String sql = "SELECT * FROM alumnos WHERE QR = ?";
+        Alumno alumno = null;
+
+        try ( Connection conn = ConexionDB.getConexion();  PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, qrHash);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                alumno = new Alumno();
+                alumno.setId_alumno(rs.getInt("id_alumno"));
+                alumno.setMatricula(rs.getString("matricula"));
+                alumno.setNombre(rs.getString("nombre"));
+                alumno.setA_paterno(rs.getString("a_paterno"));
+                alumno.setA_materno(rs.getString("a_materno"));
+                alumno.setEmail(rs.getString("email"));
+                alumno.setPassword(rs.getString("password"));
+                alumno.setQr(rs.getString("qr"));
+                alumno.setCreado_hora(rs.getTimestamp("creado_hora"));
+                alumno.setModificado_hora(rs.getTimestamp("modificado_hora"));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return alumno;
+    }
 
 }

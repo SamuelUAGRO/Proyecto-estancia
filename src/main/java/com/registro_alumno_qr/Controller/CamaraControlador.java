@@ -3,10 +3,10 @@ package com.registro_alumno_qr.Controller;
 
 import com.github.sarxos.webcam.Webcam;
 import com.google.zxing.*;
-import com.google.zxing.common.HybridBinarizer;
-import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
 import com.registro_alumno_qr.Model.Alumno_DAO;
+import com.registro_alumno_qr.Model.Asistencia_DAO;
 import com.registro_alumno_qr.View.AgregarAlumno;
+import com.registro_alumno_qr.View.VistaAsistencia;
 import com.registro_alumno_qr.View.VistaCamara;
 import java.awt.image.BufferedImage;
 import java.awt.Dimension;
@@ -17,9 +17,20 @@ public class CamaraControlador {
     private VistaCamara vista;
     private Webcam webcam;
     private volatile boolean running = false;
+    private Alumno_DAO alumnoDAO;
+private Asistencia_DAO asistenciaDAO;
+private VistaAsistencia vistaAsistencia;
+private AsistenciaControlador asistenciaControlador;
 
     public CamaraControlador(VistaCamara vista) {
         this.vista = vista;
+
+           // Inicializamos DAOs
+    alumnoDAO = new Alumno_DAO();
+    asistenciaDAO = new Asistencia_DAO();
+
+    // Creamos controlador de asistencia
+    asistenciaControlador = new AsistenciaControlador(alumnoDAO, asistenciaDAO, vistaAsistencia);
 
         iniciarCamara();
         initEventos();
@@ -36,11 +47,9 @@ public class CamaraControlador {
                 BufferedImage image = webcam.getImage();
                 if (image != null) {
                     try {
-                        LuminanceSource source = new BufferedImageLuminanceSource(image);
-                        BinaryBitmap bitmap = new BinaryBitmap(new HybridBinarizer(source));
-                        Result result = new MultiFormatReader().decode(bitmap);
-                        String qrText = result.getText();
-                        vista.mostrarTextoQR(qrText);
+                          String mensaje = asistenciaControlador.procesarQR(image);
+                        
+                        vista.mostrarTextoQR(mensaje);
                     } catch (NotFoundException e) {
                         vista.mostrarTextoQR(""); // No QR encontrado
                     }
