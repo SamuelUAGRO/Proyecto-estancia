@@ -87,15 +87,15 @@ public class CamaraControlador {
     }
 
     private void abrirVistaAsistencias() {
-        detenerCamara();
-        VistaAsistencia vistaAsistencia = new VistaAsistencia();
+       detenerCamara();
+
+    if (vistaAsistencia == null) { // si no existe, crearla
+        vistaAsistencia = new VistaAsistencia();
         Asistencia_DAO asistenciaDAO = new Asistencia_DAO();
-
-        AsistenciaControlador controladorAsistencia = new AsistenciaControlador(vistaAsistencia, asistenciaDAO);
-
-        vistaAsistencia.setVisible(true);
-
-        vista.dispose();
+        new AsistenciaControlador(vistaAsistencia, asistenciaDAO);
     }
 
+    vistaAsistencia.setVisible(true);
+    vista.dispose();
+    }
 }

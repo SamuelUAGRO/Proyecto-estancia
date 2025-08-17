@@ -4,29 +4,32 @@
  */
 package com.registro_alumno_qr.View;
 
-import javax.swing.JButton;
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-
 public class VistaAsistencia extends javax.swing.JFrame {
-    
-    
 
     public VistaAsistencia() {
-        initComponents();   
-           setLocationRelativeTo(null); 
        
+        initComponents();
+         setLocationRelativeTo(null);
     }
+
     public void setModeloTabla(DefaultTableModel modelo) {
-    tablaAsistencias.setModel(modelo);
-}
-        public JButton getBtnRegistrarAlumno() {
-    return btnRegistrarAlumno;
-}
+        tablaAsistencias.setModel(modelo);
+    }
+
+    public JButton getBtnRegistrarAlumno() {
+        return btnRegistrarAlumno;
+    }
+
     public JButton getBtnAsistencias() {
-    return btnCamara;
-}
-   
+        return btnCamara;
+    }
+    public JButton getGenerarReport() {
+        return btnGenerarReporte;
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -36,13 +39,15 @@ public class VistaAsistencia extends javax.swing.JFrame {
         btnCamara = new javax.swing.JButton();
         scroll = new javax.swing.JScrollPane();
         tablaAsistencias = new javax.swing.JTable();
+        btnGenerarReporte = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(800, 500));
         setResizable(false);
         setSize(new java.awt.Dimension(800, 500));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setMinimumSize(new java.awt.Dimension(800, 500));
+        jPanel1.setPreferredSize(new java.awt.Dimension(800, 500));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnRegistrarAlumno.setBackground(new java.awt.Color(255, 51, 0));
@@ -74,17 +79,23 @@ public class VistaAsistencia extends javax.swing.JFrame {
         ));
         scroll.setViewportView(tablaAsistencias);
 
-        jPanel1.add(scroll, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 610, 360));
+        jPanel1.add(scroll, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 610, 390));
+
+        btnGenerarReporte.setBackground(new java.awt.Color(255, 51, 0));
+        btnGenerarReporte.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
+        btnGenerarReporte.setForeground(new java.awt.Color(255, 255, 255));
+        btnGenerarReporte.setText("Imprimir Reporte");
+        jPanel1.add(btnGenerarReporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 200, 160, 40));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -127,6 +138,7 @@ public class VistaAsistencia extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btnCamara;
+    public javax.swing.JButton btnGenerarReporte;
     public javax.swing.JButton btnRegistrarAlumno;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane scroll;

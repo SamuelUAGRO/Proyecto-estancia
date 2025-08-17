@@ -18,7 +18,13 @@ import java.awt.image.BufferedImage;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import com.itextpdf.text.*;
+import com.itextpdf.text.pdf.*;
+import com.registro_alumno_qr.Utils.GeneradorReportePDF;
+import java.io.FileOutputStream;
+import java.time.LocalDateTime;
 
 /**
  *
@@ -38,6 +44,10 @@ public class AsistenciaControlador {
         
          this.vista.btnRegistrarAlumno.addActionListener(e -> abrirRegistroAlumno());
         this.vista.btnCamara.addActionListener(e -> abrirCamara());
+          this.vista.btnGenerarReporte.addActionListener(e -> {
+    System.out.println("Botón presionado");
+    generarReportePDF();
+});
 
         cargarAsistenciasEnTabla(); // cargamos al inicio
     }
@@ -120,5 +130,37 @@ public void refrescarTabla() {
         vistaCamara.setVisible(true);
         vista.dispose();
     }
+    
+private void generarReportePDF() {
+    String matricula = JOptionPane.showInputDialog(vista, "Ingrese la matrícula del alumno:");
+
+    if (matricula == null || matricula.trim().isEmpty()) {
+        JOptionPane.showMessageDialog(vista, "Matrícula inválida");
+        return;
+    }
+
+    List<Asistencia> asistencias = asistenciaDAO.obtenerAsistenciasPorMatricula(matricula);
+
+    if (asistencias.isEmpty()) {
+        JOptionPane.showMessageDialog(vista, "No se encontraron asistencias para esta matrícula");
+        return;
+    }
+
+    try {
+        String carpeta = "C:\\Users\\samue\\OneDrive\\Desktop\\Proyeto estancia\\registro_alumno_qr\\pdfs\\";
+String ruta = carpeta + "Reporte_Asistencia_" + matricula + ".pdf";
+        GeneradorReportePDF generador = new GeneradorReportePDF(asistenciaDAO);
+        generador.generarPDF(ruta, asistencias);
+
+        JOptionPane.showMessageDialog(vista, "Reporte generado en: " + ruta);
+
+    } catch (Exception ex) {
+        ex.printStackTrace();
+        JOptionPane.showMessageDialog(vista, "Error al generar el PDF: " + ex.getMessage());
+    }
+}
+
+
+
 
 }
