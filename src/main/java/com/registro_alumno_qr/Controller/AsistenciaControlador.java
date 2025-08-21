@@ -52,6 +52,10 @@ public class AsistenciaControlador {
     System.out.println("Botón presionado");
     generarReportePDFGeneral();
 });
+             this.vista.btnGenerarReporteMensual.addActionListener(e -> {
+    System.out.println("Botón presionado");
+    generarReportePDFMensual();
+});
 
         cargarAsistenciasEnTabla(); // cargamos al inicio
     }
@@ -177,7 +181,7 @@ private void generarReportePDFGeneral() {
         String carpeta = "C:\\Users\\samue\\OneDrive\\Desktop\\Proyeto estancia\\registro_alumno_qr\\pdfs\\";
 String ruta = carpeta + "Reporte_Asistencia_" + "general" + ".pdf";
         GeneradorReportePDF generador = new GeneradorReportePDF(asistenciaDAO);
-        generador.generarPDF(ruta, asistencias);
+        generador.generarPDFGeneral(ruta, asistencias);
 
         JOptionPane.showMessageDialog(vista, "Reporte generado en: " + ruta);
 
@@ -185,9 +189,32 @@ String ruta = carpeta + "Reporte_Asistencia_" + "general" + ".pdf";
         ex.printStackTrace();
         JOptionPane.showMessageDialog(vista, "Error al generar el PDF: " + ex.getMessage());
     }
+    
+    
 }
+private void generarReportePDFMensual() {
+
+    List<Asistencia> asistencias = asistenciaDAO.obtenerTodasAsistencias();
+
+    if (asistencias.isEmpty()) {
+        JOptionPane.showMessageDialog(vista, "No se encontraron asistencias para esta matrícula");
+        return;
+    }
+
+    try {
+        String carpeta = "C:\\Users\\samue\\OneDrive\\Desktop\\Proyeto estancia\\registro_alumno_qr\\pdfs\\";
+String ruta = carpeta + "Reporte_Asistencia_" + "Mensual" + ".pdf";
+        GeneradorReportePDF generador = new GeneradorReportePDF(asistenciaDAO);
+        generador.generarPDFMes(ruta, asistencias);
+
+        JOptionPane.showMessageDialog(vista, "Reporte generado en: " + ruta);
+
+    } catch (Exception ex) {
+        ex.printStackTrace();
+        JOptionPane.showMessageDialog(vista, "Error al generar el PDF: " + ex.getMessage());
+    }
 
 
 
-
+}
 }

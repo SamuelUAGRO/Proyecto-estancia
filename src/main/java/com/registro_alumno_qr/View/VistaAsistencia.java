@@ -30,7 +30,10 @@ public class VistaAsistencia extends javax.swing.JFrame {
         return btnGenerarReporte;
     }
     public JButton getGenerarReporteGeneral() {
-        return btnGenerarReporte;
+        return btnGenerarReporteGeneral;
+    }
+    public JButton getGenerarReporteMensual() {
+        return btnGenerarReporteMensual;
     }
 
     @SuppressWarnings("unchecked")
@@ -44,6 +47,7 @@ public class VistaAsistencia extends javax.swing.JFrame {
         tablaAsistencias = new javax.swing.JTable();
         btnGenerarReporte = new javax.swing.JButton();
         btnGenerarReporteGeneral = new javax.swing.JButton();
+        btnGenerarReporteMensual = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -96,6 +100,12 @@ public class VistaAsistencia extends javax.swing.JFrame {
         btnGenerarReporteGeneral.setForeground(new java.awt.Color(255, 255, 255));
         btnGenerarReporteGeneral.setText("Imprimir Reporte General");
         jPanel1.add(btnGenerarReporteGeneral, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 200, 160, 40));
+
+        btnGenerarReporteMensual.setBackground(new java.awt.Color(255, 51, 0));
+        btnGenerarReporteMensual.setFont(new java.awt.Font("Trebuchet MS", 1, 10)); // NOI18N
+        btnGenerarReporteMensual.setForeground(new java.awt.Color(255, 255, 255));
+        btnGenerarReporteMensual.setText("Imprimir reporte mensual");
+        jPanel1.add(btnGenerarReporteMensual, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 320, 160, 40));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -150,6 +160,7 @@ public class VistaAsistencia extends javax.swing.JFrame {
     public javax.swing.JButton btnCamara;
     public javax.swing.JButton btnGenerarReporte;
     public javax.swing.JButton btnGenerarReporteGeneral;
+    public javax.swing.JButton btnGenerarReporteMensual;
     public javax.swing.JButton btnRegistrarAlumno;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane scroll;

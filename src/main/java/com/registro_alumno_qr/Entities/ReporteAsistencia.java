@@ -5,6 +5,7 @@ import com.registro_alumno_qr.Model.Asistencia;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.Month;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
@@ -99,5 +100,15 @@ public class ReporteAsistencia {
                 .sorted(Comparator.comparing(Asistencia::getDia_asistencia))
                 .collect(Collectors.toList());
     }
+    
+    public Map<Month, Long> asistenciasPorMes(List<Asistencia> asistencias) {
+    return asistencias.stream()
+            .filter(a -> a.getDia_asistencia() != null)
+            .collect(Collectors.groupingBy(
+                    a -> a.getDia_asistencia().getMonth(),
+                    Collectors.counting()
+            ));
+}
+
     
 }
